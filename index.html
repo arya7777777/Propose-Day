@@ -1,7 +1,8 @@
-l<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Love You Nannu💕</title>
 
 <style>
@@ -111,8 +112,8 @@ button {
 
 <body>
 
-<!-- Background music placeholder -->
-<audio autoplay loop>
+<!-- ✅ FIXED MUSIC (plays after first click) -->
+<audio id="bgm" loop>
   <source src="Te Amo REMiX Dum Maaro Dum Aman Sanjog [ PUNU ] (mp3cut.net).mp3" type="audio/mpeg">
 </audio>
 
@@ -124,8 +125,8 @@ button {
 
   <h3>Will You Be my Girlfriend 🫣🫠 ??</h3>
 
-  <button class="yes" onclick="nextStep()">Yes</button>
-  <button class="bigyes" onclick="nextStep()">A Big Yes</button>
+  <button class="yes" onclick="handleClick()">Yes</button>
+  <button class="bigyes" onclick="handleClick()">A Big Yes</button>
 </div>
 
 <script>
@@ -142,25 +143,34 @@ const steps = [
   { gif: "dudu-bubu-dudu-love.gif", text: "kyaa ap mujhse pyaar krte ho!?" }
 ];
 
-/* Random hearts */
+/* ▶️ PLAY MUSIC SAFELY */
+function playMusic() {
+  const music = document.getElementById("bgm");
+  if (music.paused) {
+    music.play().catch(() => {});
+  }
+}
+
+/* Hearts */
 function hearts() {
   for (let i = 0; i < 30; i++) {
     const h = document.createElement("div");
     h.className = "heart";
     h.innerHTML = Math.random() > 0.5 ? "💗" : "💖";
-
     h.style.left = Math.random() * 100 + "vw";
     h.style.top  = Math.random() * 100 + "vh";
-
-    const size = Math.random() * 18 + 14;
-    h.style.fontSize = size + "px";
-
+    h.style.fontSize = (Math.random() * 18 + 14) + "px";
     const duration = Math.random() * 2 + 2.5;
     h.style.animationDuration = duration + "s";
-
     document.body.appendChild(h);
     setTimeout(() => h.remove(), duration * 1000);
   }
+}
+
+/* Combined click handler */
+function handleClick() {
+  playMusic();
+  nextStep();
 }
 
 function nextStep() {
@@ -175,15 +185,15 @@ function nextStep() {
         p.innerHTML = `
           <img src="${steps[step-1].gif}" style="max-width:100%; height:auto;"><br><br>
           <h3>${steps[step-1].text}</h3>
-          <button class="yes" onclick="nextStep()">Yes</button>
+          <button class="yes" onclick="handleClick()">Yes</button>
           <button class="no" onclick="sad()">No</button>
         `;
       } else {
         p.innerHTML = `
           <img src="${steps[step-1].gif}" style="max-width:100%; height:auto;"><br><br>
           <h3>${steps[step-1].text}</h3>
-          <button class="yes" onclick="nextStep()">Yes</button>
-          <button class="bigyes" onclick="nextStep()">A Big Yes</button>
+          <button class="yes" onclick="handleClick()">Yes</button>
+          <button class="bigyes" onclick="handleClick()">A Big Yes</button>
         `;
       }
     }, 700);
@@ -195,7 +205,7 @@ function nextStep() {
 function sad() {
   document.getElementById("popup").innerHTML = `
     <h3>I'll try my best I'll be the best 😞</h3>
-    <button class="yes" onclick="nextStep()">Continue</button>
+    <button class="yes" onclick="handleClick()">Continue</button>
   `;
 }
 
@@ -205,36 +215,6 @@ function finalMessage() {
 Te amo ...    💕.  The very First time  I confessed my love , For you, Chupke chupke. Bola indirect But I was seriously in love  at that time alsooo 💕💕 mujhe bohot nervousness ho rhi thi   mujhe lga ki shayad tab aap mujhe leave kr doge      after my confession Par aap mere pass hi Rheeee  🫠🫠🫠🫠🫠🫠 
 
 <br><br>
-But Ab mujhe aapko aur b ache se dubara se propose Krna h.  .
-.umm <br>
-Hey... HIIII <br><br>
-
-SBB... How are you !<br><br>
-
-Ummm. I .. iiiiiii.   Wannnteeeddd Toooooo Tellllllll Youuuuuuuu Sommmeeeeethhhingggg<br><br>
-
-Actually I <br><br>
-
-Umm wait 🫷🏽 not like this..<br><br>
-
-Actualllllyyyyyyy<br><br>
-
- .     🌷<br>
-             🧎🏽<br>
-I Iii<br>
-Iiiiiiiiiiiiiiiiiiíiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii..<br>
-
-I Really Like You .<br><br>
-
-I Haveeeee A Crushhhh On youuu <br><br>
-
-I Adoreee You aloooottttttt<br><br>
-
-And ....<br>
-I Really Love' you 🫣🫣🫣🫣🫣🫣🫣🫣<br><br>
-
-Please Sayyy Yesss Please Sayyy yesssa😭😭😭<br><br>
-
 Very Happy Proposeee Dayyy My Loveeeeeeeeeeee💗💗💞💞💗💗🌷🌷💞💞💗
 </div>
   `;
